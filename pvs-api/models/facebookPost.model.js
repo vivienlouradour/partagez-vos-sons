@@ -41,6 +41,7 @@ exports.list = (limit, skip, message) => {
     query = FacebookPostModel
     .find();
   }
+
   return query
     .limit(limit)
     .skip(skip)

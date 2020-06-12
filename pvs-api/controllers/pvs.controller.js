@@ -3,17 +3,19 @@ const paginate = require('express-paginate');
 
 exports.list = async (req, res) => {
   const [results, itemCount] = await Promise.all([
-    FacebookPostModel.list(req.query.limit, req.skip, req.query.message),
+    FacebookPostModel.list(req.query.limit, req.skip, req.query.message, req.query.orderby, req.query.orderbydesc),
     FacebookPostModel.count(req.query.message)
   ]);
 
   const pageCount = Math.ceil(itemCount / req.query.limit);
+
   if (req.accepts('json')) {
     // inspired by Stripe's API response for list objects
     res.json({
       object: 'list',
       has_more: paginate.hasNextPages(req)(pageCount),
       count: results.length,
+      count_total: itemCount,
       data: results
     });
   } else {

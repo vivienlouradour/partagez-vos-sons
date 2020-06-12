@@ -1,24 +1,12 @@
 const FacebookController = require('./controllers/facebook.controller');
 
 exports.routesConfig = function (app) {
-  // var todoList = require('../controllers/todoListController');
-
-  // todoList Routes
   app.route('/')
-    //   .get(todoList.list_all_tasks)
     .get(function (req, res) {
-      res.json({ message: 'Coucou ! Je suis la route mère via le router' });
+      res.json({ message: 'Default route not implemented' });
     });
 
-  app.route('/test')
-    .get(FacebookController.test);
-
-  app.route('/getposts')
-    .get(FacebookController.getPosts);
-
-  app.route('/addpost')
-    .get(FacebookController.addPost);
-
+    //TODO: protect this route or make cron task
   app.route('/scrollnewposts')
     .get(FacebookController.scrollNewPosts);
 

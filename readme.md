@@ -1,7 +1,13 @@
 # Partagez vos sons
 
-## But
+## Goal
 
-Récupérer tous les post d'un groupe Facebook afin de créer un moteur de recherche.
+Get all posts from a Facebook Group.  
+Use mongodb as data storage.  
 
+## Deployment
 
+Use docker-compose to deploy the stack : 
+- clone the repo : `git clone https://github.com/vivienlouradour/partagez-vos-sons`
+- Create a `.env` file using the `.env.example` template 
+- Run the stack : `docker-compose up (--build)`  

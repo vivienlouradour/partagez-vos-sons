@@ -1,19 +1,21 @@
 <template>
   <div>
     <div class="row justify-content-md-center">
+      <div class="alert alert-success" role="alert">Nombre total de publications : {{posts.length}}</div>
+    </div>
+    <div class="row justify-content-md-center">
       <nav aria-label="Posts navigation">
         <ul class="pagination">
           <li class="page-item" :class="{disabled: page == 1}">
             <button type="button" class="page-link" @click="page--">Précédent</button>
           </li>
-          <li 
-            v-for="pageNumber in pages.slice(page-3 < 0 ? 0 : page -3, page+5)" :key="pageNumber"
-            class="page-item" 
-            :class="{active: pageNumber == page}" 
+          <li
+            v-for="pageNumber in pages.slice(page-3 < 0 ? 0 : page -3, page+5)"
+            :key="pageNumber"
+            class="page-item"
+            :class="{active: pageNumber == page}"
           >
-            <button type="button" class="page-link" @click="page = pageNumber">
-              {{pageNumber}}
-            </button>
+            <button type="button" class="page-link" @click="page = pageNumber">{{pageNumber}}</button>
           </li>
           <li class="page-item" :class="{disabled: page >= pages.length}">
             <button type="button" @click="page++" class="page-link">Next</button>
@@ -49,14 +51,13 @@
           <li class="page-item" :class="{disabled: page == 1}">
             <button type="button" class="page-link" @click="page--">Précédent</button>
           </li>
-          <li 
-            v-for="pageNumber in pages.slice(page-3 < 0 ? 0 : page -3, page+5)" :key="pageNumber"
-            class="page-item" 
-            :class="{active: pageNumber == page}" 
+          <li
+            v-for="pageNumber in pages.slice(page-3 < 0 ? 0 : page -3, page+5)"
+            :key="pageNumber"
+            class="page-item"
+            :class="{active: pageNumber == page}"
           >
-            <button type="button" class="page-link" @click="page = pageNumber">
-              {{pageNumber}}
-            </button>
+            <button type="button" class="page-link" @click="page = pageNumber">{{pageNumber}}</button>
           </li>
           <li class="page-item" :class="{disabled: page >= pages.length}">
             <button type="button" @click="page++" class="page-link">Next</button>

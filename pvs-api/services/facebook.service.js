@@ -24,14 +24,12 @@ exports.scrollNewPosts = async () => {
   console.log('first result ' + JSON.stringify(result));
   cpt.nbPostInserted += result.nbPostInserted;
   cpt.nbPostAlreadyInserted += result.nbPostAlreadyInserted;
-  let a = 1;
   
-  while(result.cpt.nbPostInserted > 0 && a < 2){
+  while(result.cpt.nbPostInserted > 0){
     result = await performApiRequest(result.nextUrl);
     console.log('next result ' + JSON.stringify(result));
     cpt.nbPostInserted += result.nbPostInserted;
     cpt.nbPostAlreadyInserted += result.nbPostAlreadyInserted;
-    a++;
   }
   
   return cpt;

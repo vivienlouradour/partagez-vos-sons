@@ -16,6 +16,8 @@ exports.list = async (req, res) => {
       has_more: paginate.hasNextPages(req)(pageCount),
       count: results.length,
       count_total: itemCount,
+      page: req.skip + 1,
+      page_total: pageCount,
       data: results
     });
   } else {
@@ -27,6 +29,12 @@ exports.list = async (req, res) => {
     });
   }
   
+};
+
+exports.count = async (req, res) => {
+  FacebookPostModel
+    .count()
+    .then((count) => res.status(200).send({ count }));
 };
 
 exports.getById = (req, res) => {

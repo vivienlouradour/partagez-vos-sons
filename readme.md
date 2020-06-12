@@ -25,3 +25,14 @@ Use docker-compose to deploy the stack :
 - `message`: filter posts returned by message
 Example :  
 `apiUrl/posts?limit=15&page=1&message=clip` : will return the first page of a maximum of 15 posts containing 'clip' in message field  
+
+### Get single post by ID
+
+`apiUrl/posts/:postId`
+
+Example : 
+̀`apiUrl/posts/1231321354_65487878`
+
+### Get total amout of posts
+
+`/posts/count`

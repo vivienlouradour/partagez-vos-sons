@@ -20,6 +20,10 @@ exports.routesConfig = function (app) {
     PaginationMiddleware.ensurePaginationLimit,
     PvsController.list
   ]);
+
+  app.get('/posts/count', 
+    PvsController.count
+  );
     
 
   app.route('/posts/:postId')

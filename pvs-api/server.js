@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 const mongoUrl = 'mongodb://pvsdb';
 const mongoDbName = 'pvs'
-const FacebookRoutes = require('./facebook/route.config');
+const Routes = require('./route.config');
 
 console.log('server.js started');
 
@@ -14,7 +14,7 @@ main()
   .catch(console.error);
   
 async function main() {
-  FacebookRoutes.routesConfig(app);
+  Routes.routesConfig(app);
 
   await mongoose.connect(`${mongoUrl}/${mongoDbName}`, {
     useNewUrlParser: true,

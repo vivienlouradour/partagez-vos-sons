@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const FacebookPostModel = require('../facebook/models/facebookPost.model');
+const FacebookPostModel = require('../models/facebookPost.model');
 
 exports.getPosts = async () => {
   console.log('Getting posts');

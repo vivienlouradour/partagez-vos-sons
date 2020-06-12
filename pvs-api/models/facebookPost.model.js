@@ -31,27 +31,32 @@ exports.createPost = (facebookPost) => {
   return facebookPostDb.save();
 };
 
-exports.list = (perPage, page, message) => {
-  return new Promise((resolve, reject) => {
-    let query;
-    if(message){
-      query = FacebookPostModel
-      .find({ message: { "$regex": message, "$options": "i" }});
-    }
-    else{
-      query = FacebookPostModel
-      .find();
-    }
-    query
-      .limit(perPage)
-      .skip(perPage * page)
-      .exec(function(err, posts){
-        if(err){
-          reject(err);
-        }
-        else{
-          resolve(posts);
-        }
-      });
-  });
+exports.list = (limit, skip, message) => {
+  let query;
+  if(message){
+    query = FacebookPostModel
+    .find({ message: { "$regex": message, "$options": "i" }});
+  }
+  else{
+    query = FacebookPostModel
+    .find();
+  }
+  return query
+    .limit(limit)
+    .skip(skip)
+    .lean()
+    .exec();
+};
+
+exports.count = (message) => {
+  let query;
+  if(message){
+    query = FacebookPostModel
+    .count({ message: { "$regex": message, "$options": "i" }});
+  }
+  else{
+    query = FacebookPostModel
+    .count();
+  }
+  return query;
 };

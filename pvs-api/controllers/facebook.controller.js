@@ -1,4 +1,4 @@
-const FacebookService = require('../../services/facebook.service');
+const FacebookService = require('../services/facebook.service');
 const FacebookPostModel = require('../models/facebookPost.model');
 
 exports.scrollNewPosts = (req, res) => {

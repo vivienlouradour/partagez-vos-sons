@@ -2,25 +2,28 @@ version: "2"
 services:
   pvsdb:
     image: mongo
+    restart: always
     networks:
       - pvsdbnetwork
     volumes:
       - pvs-mongo-volume:/data/db
   mongo-express:
     image: mongo-express
-    restart: always
     ports:
-      - 8081:8081
+      - "${MONGO_EXPRESS_PORT}:8081"
     environment:
       - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
       - ME_CONFIG_MONGODB_SERVER=pvsdb
       - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
       - ME_CONFIG_MONGODB_AUTH_DATABASE=pvs
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_EXPRESS_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_EXPRESS_PASSWORD}
     networks:
       - pvsdbnetwork
   pvsapi:
     build: ./pvs-api
+    restart: always
     ports:
       - "${API_PORT}:3000"
     depends_on:
@@ -30,6 +33,13 @@ services:
     environment:
       - FB_GROUP_ID=${FB_GROUP_ID}
       - FB_ACCESS_TOKEN=${FB_ACCESS_TOKEN}
+  pvswebapp:
+    build: ./webapp
+    restart: always
+    ports:
+      - "${WEBAPP_PORT}:8080"
+    environment:
+      - VUE_APP_API_URL=${API_URL}
 volumes:
   pvs-mongo-volume:
 networks:

@@ -10,6 +10,7 @@ Use mongodb as data storage.
 Use docker-compose to deploy the stack : 
 - clone the repo : `git clone https://github.com/vivienlouradour/partagez-vos-sons`
 - Create a `.env` file using the `.env.example` template 
+- Create a `.env` file in `webapp` folder using the `.env.development` template
 - Run the stack : `docker-compose up (--build)`  
 
 ## API routes 

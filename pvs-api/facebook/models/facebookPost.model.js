@@ -11,6 +11,8 @@ const facebookPostSchema = new Schema({
   creationDate: Date
 });
 
+// schema.index({message: 'text', urlDescription: 'text'});
+
 
 const FacebookPostModel = mongoose.model('FacebookPosts', facebookPostSchema);
 
@@ -29,9 +31,20 @@ exports.createPost = (facebookPost) => {
   return facebookPostDb.save();
 };
 
-exports.list = () => {
+exports.list = (perPage, page, message) => {
   return new Promise((resolve, reject) => {
-    FacebookPostModel.find()
+    let query;
+    if(message){
+      query = FacebookPostModel
+      .find({ message: { "$regex": message, "$options": "i" }});
+    }
+    else{
+      query = FacebookPostModel
+      .find();
+    }
+    query
+      .limit(perPage)
+      .skip(perPage * page)
       .exec(function(err, posts){
         if(err){
           reject(err);

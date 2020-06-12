@@ -3,7 +3,7 @@ const paginate = require('express-paginate');
 
 exports.list = async (req, res) => {
   const [results, itemCount] = await Promise.all([
-    FacebookPostModel.list(req.query.limit, req.skip, req.query.message, req.query.orderby, req.query.orderbydesc),
+    FacebookPostModel.list(req.query.limit, req.skip, req.query.message),
     FacebookPostModel.count(req.query.message)
   ]);
 

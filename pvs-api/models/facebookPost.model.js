@@ -43,6 +43,7 @@ exports.list = (limit, skip, message) => {
   }
 
   return query
+    .sort([['creationDate', -1]])
     .limit(limit)
     .skip(skip)
     .lean()

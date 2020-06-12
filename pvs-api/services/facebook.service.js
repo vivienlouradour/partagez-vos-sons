@@ -26,6 +26,7 @@ exports.scrollNewPosts = async () => {
   cpt.nbPostAlreadyInserted += result.nbPostAlreadyInserted;
   
   while(result.cpt.nbPostInserted > 0){
+    await sleep(5000); //Avoid reaching facebook api request limit
     result = await performApiRequest(result.nextUrl);
     console.log('next result ' + JSON.stringify(result));
     cpt.nbPostInserted += result.nbPostInserted;
@@ -33,6 +34,12 @@ exports.scrollNewPosts = async () => {
   }
   
   return cpt;
+}
+
+function sleep(ms){
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 const performApiRequest = async (url) => {

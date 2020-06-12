@@ -64,8 +64,8 @@ const insertPostDb = async (posts) => {
     };
     if(post.attachments && post.attachments.data.length > 0){
       let attachmentData = post.attachments.data[0];
-      dbPost.url = attachmentData.target.url;
-      dbPost.urlDescription = attachmentData.description;
+      dbPost.url = attachmentData.target?.url;
+      dbPost.urlDescription = attachmentData?.description;
     }
     if(post.comments && post.comments.data.length > 0){
       post.comments.data.forEach((comment) => {

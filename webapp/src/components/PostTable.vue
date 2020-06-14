@@ -55,11 +55,11 @@
           <td>{{p.message}}</td>
           <td>{{formatDate(p.dateCreation)}}</td>
           <td>
-            <a :href="p.url" class="badge badge-success">Lien</a>
+            <span @click="openInNewTab(p.url)" class="badge badge-success span-link">Lien</span>
           </td>
           <td>{{p.urlDescription}}</td>
           <td>
-            <a href="#" v-if="p.commentaires.length > 0" class="badge badge-pill badge-success" @click="showModal(p.commentaires)">{{p.commentaires.length}}</a>
+            <span v-if="p.commentaires.length > 0" class="span-link badge badge-pill badge-success" @click="showModal(p.commentaires)">{{p.commentaires.length}}</span>
             <span v-if="p.commentaires.length == 0" class="badge badge-pill badge-dark">{{p.commentaires.length}}</span>
           
           </td>
@@ -105,6 +105,9 @@ export default {
     };
   },
   methods: {
+    openInNewTab(url){
+      window.open(url, "_blank");    
+    },
     showModal(comments) {
       this.$modal.show("comments-modal", { comments });
     },
@@ -194,5 +197,11 @@ button.page-link {
   width: 80%;
   margin: 20px auto;
   float: none;
+}
+span.span-link{
+  cursor: pointer;
+}
+span:hover.span-link {
+    color: #444444; /* Change the value to with anchors hover color*/
 }
 </style>

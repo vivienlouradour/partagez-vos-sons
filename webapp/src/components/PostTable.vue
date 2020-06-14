@@ -1,5 +1,10 @@
 <template>
   <div>
+    <modal name="comments-modal" @before-open="beforeOpenModal">
+      <ul>
+        <li v-for="comment in modalComments" :key="comment">{{comment}}</li>
+      </ul>
+    </modal>
     <div class="row justify-content-md-center">
       <div class="alert alert-success" role="alert">Nombre total de publications : {{posts.length}}</div>
     </div>
@@ -23,7 +28,7 @@
         </ul>
       </nav>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Message</th>
@@ -41,7 +46,14 @@
             <a :href="p.url" class="badge badge-success">Lien</a>
           </td>
           <td>{{p.urlDescription}}</td>
-          <td>{{p.commentaires}}</td>
+          <td>
+            {{p.commentaires.length}}
+            <button
+              v-if="p.commentaires.length > 0"
+              @click="showModal(p.commentaires)"
+              class="badge badge-success"
+            >Voir</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -79,10 +91,21 @@ export default {
       posts: [],
       page: 1,
       perPage: 20,
-      pages: []
+      pages: [],
+      modalComments: []
     };
   },
   methods: {
+    showModal(comments) {
+      this.$modal.show("comments-modal", { comments });
+    },
+    hideModal() {
+      this.$modal.hide("comments-modal");
+    },
+    beforeOpenModal(event) {
+      console.log(event.params.comments);
+      this.modalComments = event.params.comments;
+    },
     formatDate(date) {
       if (date) {
         return moment(String(date)).format("DD/MM/YYYY HH:mm:ss");
@@ -108,7 +131,7 @@ export default {
               dateCreation: post.creationDate,
               url: post.url,
               urlDescription: post.urlDescription,
-              commentaires: post.comments.length
+              commentaires: post.comments
             });
           });
           return response.has_more;
@@ -156,5 +179,11 @@ button.page-link {
 .offset {
   width: 500px !important;
   margin: 20px auto;
+}
+.table {
+  border-radius: 5px;
+  width: 80%;
+  margin: 20px auto;
+  float: none;
 }
 </style>

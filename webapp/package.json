@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "moment": "^2.26.0",
     "vue": "^2.6.11",
+    "vue-js-modal": "^2.0.0-rc.3",
     "vue-router": "^3.3.3",
     "vuejs-paginate": "^2.1.0"
   },

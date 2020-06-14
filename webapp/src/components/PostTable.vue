@@ -1,8 +1,8 @@
 <template>
   <div>
-    <modal name="comments-modal" @before-open="beforeOpenModal">
-      <ul>
-        <li v-for="comment in modalComments" :key="comment">{{comment}}</li>
+    <modal name="comments-modal" height="auto" scrollable="true" @before-open="beforeOpenModal">
+      <ul class="list-group">
+        <li class="list-group-item" v-for="comment in modalComments" :key="comment">{{comment}}</li>
       </ul>
     </modal>
     <div class="row justify-content-md-center">
@@ -47,12 +47,9 @@
           </td>
           <td>{{p.urlDescription}}</td>
           <td>
-            {{p.commentaires.length}}
-            <button
-              v-if="p.commentaires.length > 0"
-              @click="showModal(p.commentaires)"
-              class="badge badge-success"
-            >Voir</button>
+            <a href="#" v-if="p.commentaires.length > 0" class="badge badge-pill badge-success" @click="showModal(p.commentaires)">{{p.commentaires.length}}</a>
+            <span v-if="p.commentaires.length == 0" class="badge badge-pill badge-dark">{{p.commentaires.length}}</span>
+          
           </td>
         </tr>
       </tbody>

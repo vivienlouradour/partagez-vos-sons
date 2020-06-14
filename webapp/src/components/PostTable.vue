@@ -12,7 +12,13 @@
       <nav aria-label="Posts navigation">
         <ul class="pagination">
           <li class="page-item" :class="{disabled: page == 1}">
-            <button type="button" class="page-link" @click="page--">Précédent</button>
+            <button type="button" @click="page = 1" class="page-link">First</button>
+          </li>
+          <li class="page-item" :class="{disabled: page == 1}">
+            <button class="page-link" aria-label="Previous" @click="page--">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </button>
           </li>
           <li
             v-for="pageNumber in pages.slice(page-3 < 0 ? 0 : page -3, page+5)"
@@ -23,7 +29,13 @@
             <button type="button" class="page-link" @click="page = pageNumber">{{pageNumber}}</button>
           </li>
           <li class="page-item" :class="{disabled: page >= pages.length}">
-            <button type="button" @click="page++" class="page-link">Next</button>
+            <button class="page-link" @click="page++" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </button>
+          </li>
+          <li class="page-item" :class="{disabled: page >= pages.length}">
+            <button type="button" @click="page = pages.length" class="page-link">Last</button>
           </li>
         </ul>
       </nav>

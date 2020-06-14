@@ -1,18 +1,6 @@
 const request = require('request-promise');
 const FacebookPostModel = require('../models/facebookPost.model');
 
-exports.getPosts = async () => {
-  console.log('Getting posts');
-
-  const options = {
-    method: 'GET',
-    uri: `https://graph.facebook.com/v7.0/${process.env.FB_GROUP_ID}/feed?access_token=${process.env.FB_ACCESS_TOKEN}&fields=created_time,caption,comments,attachments,description,from,updated_time,message`,
-    json: true
-  };
-
-  return request(options);
-}
-
 exports.scrollNewPosts = async () => {
   console.log('Scrolling for new posts');
 
@@ -22,15 +10,15 @@ exports.scrollNewPosts = async () => {
   let cpt = { nbPostInserted: 0, nbPostAlreadyInserted: 0 };
   let result = await performApiRequest(defaultUrl);
   console.log('first result ' + JSON.stringify(result));
-  cpt.nbPostInserted += result.nbPostInserted;
-  cpt.nbPostAlreadyInserted += result.nbPostAlreadyInserted;
+  cpt.nbPostInserted += result.cpt.nbPostInserted;
+  cpt.nbPostAlreadyInserted += result.cpt.nbPostAlreadyInserted;
   
   while(result.cpt.nbPostInserted > 0){
     await sleep(5000); //Avoid reaching facebook api request limit
     result = await performApiRequest(result.nextUrl);
     console.log('next result ' + JSON.stringify(result));
-    cpt.nbPostInserted += result.nbPostInserted;
-    cpt.nbPostAlreadyInserted += result.nbPostAlreadyInserted;
+    cpt.nbPostInserted += result.cpt.nbPostInserted;
+    cpt.nbPostAlreadyInserted += result.cpt.nbPostAlreadyInserted;
   }
   
   return cpt;

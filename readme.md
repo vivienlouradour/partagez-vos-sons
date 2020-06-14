@@ -37,3 +37,7 @@ Example :
 ### Get total amout of posts
 
 `/posts/count`
+
+### Scroll new facebook posts
+
+`curl -X POST -H "Content-Type:application/json" http://localhost:8080/admin/scrollnewposts -d '{"auth_token":"API_ADMIN_TOKEN_HERE"}'`

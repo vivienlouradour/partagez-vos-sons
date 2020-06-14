@@ -20,7 +20,6 @@ exports.findById = async (id) => {
   let post = await FacebookPostModel.findById(id);
   if(post != null){
     post = post.toJSON();
-    console.log('post is not null');
     delete post.__v;
   }
   return post;

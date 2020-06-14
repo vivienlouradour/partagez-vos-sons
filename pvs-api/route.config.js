@@ -2,6 +2,7 @@ const FacebookController = require('./controllers/facebook.controller');
 const PvsController = require('./controllers/pvs.controller');
 const paginate = require('express-paginate');
 const PaginationMiddleware = require('./middlewares/pagination.middleware');
+const AuthMiddleware = require('./middlewares/auth.middleware');
 
 exports.routesConfig = function (app) {
   app.use(paginate.middleware(10, 50));
@@ -11,8 +12,8 @@ exports.routesConfig = function (app) {
       res.json({ message: 'Default route not implemented' });
     });
 
-    //TODO: protect this route or make cron task
-  app.get('/scrollnewposts', 
+  app.post('/admin/scrollnewposts', 
+    AuthMiddleware.adminPermissionRequired,
     FacebookController.scrollNewPosts
   );
     
@@ -28,9 +29,4 @@ exports.routesConfig = function (app) {
 
   app.route('/posts/:postId')
     .get(PvsController.getById);  
-
-  // app.route('/tasks/:taskId')
-  //   .get(todoList.read_a_task)
-  //   .put(todoList.update_a_task)
-  //   .delete(todoList.delete_a_task);
 };

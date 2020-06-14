@@ -33,6 +33,7 @@ services:
     environment:
       - FB_GROUP_ID=${FB_GROUP_ID}
       - FB_ACCESS_TOKEN=${FB_ACCESS_TOKEN}
+      - API_ADMIN_TOKEN=${API_ADMIN_TOKEN}
   pvswebapp:
     build: ./webapp
     restart: always
